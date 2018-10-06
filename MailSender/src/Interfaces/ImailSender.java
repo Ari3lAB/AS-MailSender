@@ -5,10 +5,13 @@
  */
 package Interfaces;
 
+import Negocio.Servidor;
+
 /**
  *
  * @author Ariel AB
  */
 public interface ImailSender {
-    
+    void setServidor(Servidor servidor);
+    void enviarCorreo(String Para, String Msg);
 }
