@@ -13,12 +13,24 @@ public class Servidor {
     private String server;
     private Cuenta cuenta;
     private String protocolo;
-    private short puerto;
-    public Servidor(String server, Cuenta cuenta, String protocolo, short puerto){
+    private int puerto;
+    private String descripcion;
+    public Servidor(){
+        
+    }
+    public Servidor(Servidor servidor){
+        this.server = servidor.getServer();
+        this.cuenta = new Cuenta(servidor.getCuenta());
+        this.protocolo = servidor.getProtocolo();
+        this.puerto = servidor.getPuerto();
+        this.descripcion = servidor.getDescripcion();
+    }
+    public Servidor(String server, Cuenta cuenta, String protocolo, int puerto, String descripcion){
         this.server= server;
         this.cuenta = new Cuenta(cuenta);
         this.protocolo = protocolo;
-        this.server = server;
+        this.puerto = puerto;
+        this.descripcion = descripcion;
     }
     public String getServer() {
         return server;
@@ -44,13 +56,24 @@ public class Servidor {
         this.protocolo = protocolo;
     }
 
-    public short getPuerto() {
-        return puerto;
+    public int getPuerto() {
+        return this.puerto;
     }
 
-    public void setPuerto(short puerto) {
+    public void setPuerto(int puerto) {
         this.puerto = puerto;
     }
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     
+    @Override
+    public String toString(){
+        return this.descripcion;
+    }
     
 }
