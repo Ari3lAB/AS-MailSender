@@ -23,28 +23,20 @@ import java.util.logging.Logger;
  * @author Eduardo Ramírez
  */
 public class AccesoDatos {
-
     public static ArrayList<Servidor> getServidores() {
         ArrayList<Servidor> servers = new  ArrayList<>();
         File file = new File("config.conf");
-
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(file));
-         
-
-        String st;
-        
+        String st;     
             while ((st = br.readLine()) != null) {
                 List<String> lineaDividida = Arrays.asList(st.split(","));
                 int pppp = Integer.parseInt(lineaDividida.get(4));
             Cuenta cuenta = new Cuenta(lineaDividida.get(1),lineaDividida.get(2));
                 Servidor ser = new Servidor(lineaDividida.get(0),
                 cuenta, lineaDividida.get(3), 587, lineaDividida.get(5));
-                servers.add(ser);
-                
-                
-            
+                servers.add(ser);                                        
         }
         }catch (IOException ex ) {
             System.out.println("Ocurrió un problema al procesar los datos.");
