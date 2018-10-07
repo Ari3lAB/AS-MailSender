@@ -27,7 +27,7 @@ public class MailSenderImpl implements ImailSender {
         this.servidor = new Servidor(servidor);
     }
     @Override
-    public void enviarCorreo(String para, String asunto, String msg) {
+    public boolean enviarCorreo(String para, String asunto, String msg) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -47,9 +47,9 @@ public class MailSenderImpl implements ImailSender {
             message.setSubject(asunto);
             message.setText(msg);
             Transport.send(message);
-            System.out.println("¡Correo enviado!");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
     @Override
