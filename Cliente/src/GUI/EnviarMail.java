@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
-
+package GUI;
 import Datos.AccesoDatos;
+import Interfaces.ImailSender;
+import Mailsender.MailSender;
 import Negocio.Servidor;
-import com.sun.media.jfxmedia.MediaError;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import mailsender.MailSenderImpl;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -182,15 +185,15 @@ public class EnviarMail extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        ImailSender emailSender = new MailSenderImpl();
+        ImailSender emailSender = new MailSender();
         emailSender.setServidor(((Servidor)(jComboBox1.getSelectedItem())));
-        if(emailSender.enviarCorreo(txtPara.getText(), txtAsunto.getText(),txtMensaje.getText())){
-            
+        try {
+            emailSender.enviarCorreo(txtPara.getText(), txtAsunto.getText(),txtMensaje.getText());
             JOptionPane.showMessageDialog(this, "¡Correo enviado exitosamente!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al enviar el correo: "+ex.getMessage());
         }
-        else{
-            JOptionPane.showMessageDialog(this, "No se pudo enviar el correo.");
-        }
+        
         
     }//GEN-LAST:event_btnEnviarActionPerformed
 
