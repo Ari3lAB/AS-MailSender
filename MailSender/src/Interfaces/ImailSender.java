@@ -10,6 +10,6 @@ import java.util.ArrayList;
  */
 public interface ImailSender {
    void  setServidor(Servidor servidor);
-   boolean enviarCorreo(String para, String asunto, String msg);
+   void enviarCorreo(String para, String asunto, String msg) throws Exception;
    ArrayList<Servidor> getServidores();
 }
