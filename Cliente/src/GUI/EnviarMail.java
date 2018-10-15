@@ -8,6 +8,11 @@ import Datos.AccesoDatos;
 import Interfaces.ImailSender;
 import Mailsender.MailSender;
 import Negocio.Servidor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -20,6 +25,7 @@ import java.util.logging.Logger;
  * @author Ariel AB
  */
 public class EnviarMail extends javax.swing.JFrame {
+ ImailSender emailSender = new MailSender();
 
     /**
      * Creates new form EnviarMail
@@ -27,9 +33,8 @@ public class EnviarMail extends javax.swing.JFrame {
     
     public EnviarMail() {
         initComponents();
-        jComboBox1.setModel(new DefaultComboBoxModel(AccesoDatos.getServidores().toArray()));
-        txtDe.setText(((Servidor)(jComboBox1.getSelectedItem())).getCuenta().getCorreo());
-       
+        jComboBox1.setModel(new DefaultComboBoxModel(emailSender.getServidores().toArray()));
+           txtDe.setText(((Servidor)(jComboBox1.getSelectedItem())).getCuenta().getCorreo());
     }
 
     /**
@@ -44,6 +49,7 @@ public class EnviarMail extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtDe = new javax.swing.JTextField();
@@ -66,6 +72,18 @@ public class EnviarMail extends javax.swing.JFrame {
                 jComboBox1ItemStateChanged(evt);
             }
         });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
+
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,15 +93,20 @@ public class EnviarMail extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
@@ -182,10 +205,13 @@ public class EnviarMail extends javax.swing.JFrame {
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
        txtDe.setText(((Servidor)(jComboBox1.getSelectedItem())).getCuenta().getCorreo());
+     
+         
+     
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        ImailSender emailSender = new MailSender();
+       
         emailSender.setServidor(((Servidor)(jComboBox1.getSelectedItem())));
         try {
             emailSender.enviarCorreo(txtPara.getText(), txtAsunto.getText(),txtMensaje.getText());
@@ -196,6 +222,23 @@ public class EnviarMail extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnEnviarActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int in;
+    
+        
+        in = jComboBox1.getSelectedIndex();
+         jComboBox1.setModel(new DefaultComboBoxModel(emailSender.getServidores().toArray()));
+            
+             jComboBox1.setSelectedIndex(in);
+         
+       
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,6 +277,7 @@ public class EnviarMail extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -249,3 +293,4 @@ public class EnviarMail extends javax.swing.JFrame {
     private javax.swing.JTextField txtPara;
     // End of variables declaration//GEN-END:variables
 }
+
