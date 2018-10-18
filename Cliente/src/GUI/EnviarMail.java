@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.rmi.Naming;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ import java.util.logging.Logger;
  * @author Ariel AB
  */
 public class EnviarMail extends javax.swing.JFrame {
- ImailSender emailSender = new MailSender();
+ private static ImailSender emailSender;
 
     /**
      * Creates new form EnviarMail
@@ -33,11 +34,13 @@ public class EnviarMail extends javax.swing.JFrame {
     
     public EnviarMail() {
         initComponents();
-        try{
+        try{System.out.println("BIEN");
+            emailSender = (ImailSender) Naming.lookup("//localhost/MailSender");
+            
         jComboBox1.setModel(new DefaultComboBoxModel(emailSender.getServidores().toArray()));
            txtDe.setText(((Servidor)(jComboBox1.getSelectedItem())).getCuenta().getCorreo());
         }catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al enviar el correo: "+ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: "+ex.getMessage());
         }
     }
 
@@ -241,7 +244,7 @@ public class EnviarMail extends javax.swing.JFrame {
             
              jComboBox1.setSelectedIndex(in);
         }catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al enviar el correo: "+ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: "+ex.getMessage());
         }
        
        
