@@ -14,9 +14,9 @@ import java.net.URLClassLoader;
 
 public class ExtensionLoader<C> {
 
-  public C LoadClass(String classpath, Class<C> parentClass) throws ClassNotFoundException {
-    File pluginsDir = new File(System.getProperty("user.dir"));
-    for (File jar : pluginsDir.listFiles()) {
+  public C LoadClass(String nombre, String classpath, Class<C> parentClass) throws ClassNotFoundException {
+    File jar = new File("API/"+nombre);
+   
       try {
         ClassLoader loader = URLClassLoader.newInstance(
             new URL[] { jar.toURL() },
@@ -32,7 +32,7 @@ public class ExtensionLoader<C> {
       } catch (ClassNotFoundException e) {
         // There might be multiple JARs in the directory,
         // so keep looking
-        continue;
+        
       } catch (MalformedURLException e) {
         e.printStackTrace();
       } catch (NoSuchMethodException e) {
@@ -44,8 +44,8 @@ public class ExtensionLoader<C> {
       } catch (InstantiationException e) {
         e.printStackTrace();
       }
-    }
-    throw new ClassNotFoundException("Class " + classpath
-        + " wasn't found in directory " + System.getProperty("user.dir"));
+    
+    throw new ClassNotFoundException("La clase" + classpath
+        + " no se encontró en el directorio " + System.getProperty("user.dir"));
   }
 }

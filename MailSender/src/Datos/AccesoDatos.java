@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @author Eduardo Ramírez
  */
 public class AccesoDatos {
-    public static ArrayList<Servidor> getServidores() {
+    public static ArrayList<Servidor> getServidores() throws Exception {
         
         ArrayList<Servidor> servers = new  ArrayList<>();
         File file = new File("config.conf");
@@ -40,9 +40,23 @@ public class AccesoDatos {
                 servers.add(ser);                                        
         }
         }catch (IOException ex ) {
-            System.out.println("Ocurrió un problema al procesar los datos.");
+            throw new Exception("Ocurrió un problema al procesar los datos de configuración de los servidores.");
         }
         return servers;
+    }
+    public static String getApi() throws Exception {
+        
+        
+        File file = new File("APIconfig.conf");
+        BufferedReader br;
+        String st;
+        try {
+            br = new BufferedReader(new FileReader(file));
+        st= br.readLine();     
+        }catch (IOException ex ) {
+            throw new Exception("Ocurrió un problema al procesar los datos de configuración de la API");
+        }
+      return st;
     }
 }
 
