@@ -16,16 +16,7 @@ import java.io.IOException;
  */
 public class prueba {
     public static void main(String[] args) throws Exception{
-        File file = new File("APIconfig.conf");
-        BufferedReader br;
-        String st;
-        try {
-            br = new BufferedReader(new FileReader(file));
-        st= br.readLine();
-            System.out.println(st);
-        }catch (IOException ex ) {
-            throw new Exception("Ocurrió un problema al procesar los datos de configuración de la API");
-        }
+        System.out.println(File.separator);
       
     }
 }
