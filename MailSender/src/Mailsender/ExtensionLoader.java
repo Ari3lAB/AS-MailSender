@@ -16,7 +16,7 @@ public class ExtensionLoader<C> {
 
     public C LoadClass(String nombre, String classpath, Class<C> parentClass) throws ClassNotFoundException {
         File jar = new File(/*System.getProperty("user.dir") + File.separator +*/ "API" + File.separator + nombre);
-
+        System.out.println(jar.getAbsoluteFile());
         try {
             ClassLoader loader = URLClassLoader.newInstance(
                     new URL[]{jar.toURL()},

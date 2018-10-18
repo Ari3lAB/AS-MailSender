@@ -16,7 +16,9 @@ import java.io.IOException;
  */
 public class prueba {
     public static void main(String[] args) throws Exception{
-        System.out.println(File.separator);
+        String nombre="SenderAPI.jar";
+         File jar = new File(/*System.getProperty("user.dir") + File.separator +*/ "API" + File.separator + nombre);
+        System.out.println(jar.getAbsoluteFile());
       
     }
 }
