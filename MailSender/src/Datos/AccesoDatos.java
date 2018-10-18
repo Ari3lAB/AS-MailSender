@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  */
 public class AccesoDatos {
     public static ArrayList<Servidor> getServidores() {
+        
         ArrayList<Servidor> servers = new  ArrayList<>();
         File file = new File("config.conf");
         BufferedReader br;
