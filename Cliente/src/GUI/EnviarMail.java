@@ -33,8 +33,12 @@ public class EnviarMail extends javax.swing.JFrame {
     
     public EnviarMail() {
         initComponents();
+        try{
         jComboBox1.setModel(new DefaultComboBoxModel(emailSender.getServidores().toArray()));
            txtDe.setText(((Servidor)(jComboBox1.getSelectedItem())).getCuenta().getCorreo());
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al enviar el correo: "+ex.getMessage());
+        }
     }
 
     /**
@@ -228,6 +232,7 @@ public class EnviarMail extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
         int in;
     
         
@@ -235,7 +240,9 @@ public class EnviarMail extends javax.swing.JFrame {
          jComboBox1.setModel(new DefaultComboBoxModel(emailSender.getServidores().toArray()));
             
              jComboBox1.setSelectedIndex(in);
-         
+        }catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al enviar el correo: "+ex.getMessage());
+        }
        
        
     }//GEN-LAST:event_jButton1ActionPerformed
